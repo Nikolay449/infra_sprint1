@@ -133,7 +133,7 @@ dmypy.json
 
 media/
 .media
-
+static_backend/
 # FRONTEND
 
 # dependencies

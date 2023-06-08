@@ -1,0 +1,83 @@
+server {
+    server_name 158.160.73.123 kittygrampet.ddns.net;
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8040;
+    }
+
+    location /admin/ {
+        proxy_pass http://127.0.0.1:8040;
+    }
+
+    location /media/ {
+        alias /var/www/kittygram/media/;
+    }
+        
+    location / {
+        root   /var/www/kittygram;
+        index  index.html index.htm;
+        try_files $uri /index.html;
+    }
+
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/kittygrampet.ddns.net/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/kittygrampet.ddns.net/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+server {
+
+        server_name 158.160.73.123 taskbk.ddns.net;
+
+        location /api/ {
+                proxy_pass http://127.0.0.1:8000;
+        }
+
+        location /admin/ {
+                proxy_pass http://127.0.0.1:8000;
+        }
+
+        location / {
+                root   /var/www/taski;
+                index  index.html index.htm;
+                try_files $uri /index.html =404;
+        }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/taskbk.ddns.net/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/taskbk.ddns.net/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+server {
+    if ($host = taskbk.ddns.net) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+        listen 80;
+
+        server_name 158.160.73.123 taskbk.ddns.net;
+    return 404; # managed by Certbot
+
+
+}
+
+server {
+    if ($host = kittygrampet.ddns.net) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    server_name 158.160.73.123 kittygrampet.ddns.net;
+    return 404; # managed by Certbot
+
+
+}
+
