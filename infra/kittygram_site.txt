@@ -2,4 +2,4 @@ IP: 158.160.73.123;
 name_taski: https://taskbk.ddns.net;
 name_kittygram: https://https://kittygrampet.ddns.net;
 login: Admin;
-password: cclone789;
+password: clone789;
